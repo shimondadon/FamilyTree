@@ -25,11 +25,13 @@
 	content: '';
 	position: absolute; top: 0; right: 50%;
 	border-top: 3px solid rgb(0, 226, 68);
+	border-top-style: dotted;
 	width: 50%; height: 20px;
 }
 .tree li::after{
 	right: auto; left: 50%;
 	border-left: 3px solid rgb(0, 226, 68);
+	border-left-style: dotted;
 }
 
 /*We need to remove left-right connectors from elements without 
@@ -52,6 +54,7 @@ right connector from last child*/
 	border-radius: 0 5px 0 0;
 	-webkit-border-radius: 0 5px 0 0;
 	-moz-border-radius: 0 5px 0 0;
+	border-right-style: dotted;
 }
 .tree li:first-child::after{
 	border-radius: 5px 0 0 0;
@@ -64,6 +67,7 @@ right connector from last child*/
 	content: '';
 	position: absolute; top: 0; left: 50%;
 	border-left: 3px solid rgb(0, 226, 68);
+	border-left-style: dotted;
 	width: 0; height: 20px;
 }
 
