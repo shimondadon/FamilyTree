@@ -6,6 +6,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { familyCardComponent } from './components/family-card/family-card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsContainer } from 'src/shared/components/toasts/toasts-container';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,8 @@ import { ToastsContainer } from 'src/shared/components/toasts/toasts-container';
     BrowserModule,
     InfiniteScrollModule,
     NgbModule,
-    ToastsContainer
-
+    ToastsContainer,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
