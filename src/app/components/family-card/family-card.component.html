@@ -1,0 +1,25 @@
+<li class="list-group-item">
+  <div style="min-width: 290px;"> 
+    <span (click)="deleteNode()" class="xNode">X</span>
+    <a class="me-3" href="#" *ngFor="let name of node.names">{{name}} <span (click)="deleteParent(name.trim())" class="X">X</span></a>
+    <div class="row" >
+      <div class="col-sm-12 mt-2">
+        <input #newName class="border border-2" placeholder="name" type="text" maxlength="15">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 mt-2">
+        <button class="btn me-2 btn-success button" type="button" (click)="addParent(newName.value.trim())">Add parent</button>
+        <button class="btn me-2 btn-danger button" type="button" (click)="addSiblin(newName.value.trim())">Add siblin</button>
+        <button class="btn me-2 btn-primary button" type="button" (click)="addChild(newName.value.trim())">Add child</button>
+      </div>
+    </div>
+    <ul class="list-group list-group-horizontal position-relative overflow-auto w-100" *ngIf="node.children.length>0">
+      <li class="list-group-item" *ngFor="let child of node.children">
+        <div>
+            <app-family-card [node]="child" ></app-family-card>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </li>

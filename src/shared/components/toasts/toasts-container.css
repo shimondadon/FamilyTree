@@ -1,0 +1,9 @@
+:host {
+    position: fixed;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, 0px);
+    z-index: 9999;
+    bottom: 0;
+    margin-bottom: 2em;
+}
