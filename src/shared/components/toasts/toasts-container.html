@@ -1,3 +1,6 @@
+<!--
+	this component show list of toast view with timeout and text/layout
+-->
 <ngb-toast
 	*ngFor="let toast of toastService.toasts"
 	[class]="toast.classname"
@@ -9,4 +12,4 @@
 	</ng-template>
 
 	<ng-template #text>{{ toast.textOrTpl }}</ng-template>
-</ngb-toast>
+</ngb-toast> 

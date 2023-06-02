@@ -8,9 +8,12 @@ import { FamilyNode as FamilyNode } from 'src/shared/FamilyNode.model';
 })
 export class AppComponent {
   me: FamilyNode = new FamilyNode([], ['Me'],undefined);
-  
   family: FamilyNode = this.me;
 
+  /**
+   * change the current family root node to new family node by input name 
+   * @param name 
+   */
   addParentRoot(name:string) :void{
     var parent = new FamilyNode([this.family], [name], undefined);
     this.family.parent = parent;

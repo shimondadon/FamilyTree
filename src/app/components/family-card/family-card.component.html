@@ -4,10 +4,9 @@
     <a class="me-3" href="#" *ngFor="let name of node.names">{{name}} <span title="delete parent"
         (click)="deleteParent(name.trim())" class="X">X</span></a>
     <form class="" #userForm="ngForm" (ngSubmit)="addRelation(userForm)">
-
       <div class="input-group top-0 start-50 mt-2 translate-middle-x" style="max-width: 240px; min-width: 240px;">
         <span class="input-group-text" id="basic-addon1" [ngStyle]="{borderColor: !isValidFormSubmitted ? 'red': ''}">relation</span>
-        <input type="text" [ngModel]="newName" name="newName" [ngStyle]="{borderColor: !isValidFormSubmitted ? 'red': ''}" class="form-control" placeholder="name">
+        <input type="text" [(ngModel)]="newName" name="newName" [ngStyle]="{borderColor: !isValidFormSubmitted ? 'red': ''}" class="form-control" placeholder="name">
       </div>
       <div class="">
         <div class="d-inline-block me-1">
