@@ -15,8 +15,28 @@ export class AppComponent {
    * @param name 
    */
   addParentRoot(name:string) :void{
-    var parent = new FamilyNode([this.family], [name], undefined);
+    let parent = new FamilyNode([this.family], [name], undefined);
     this.family.parent = parent;
     this.family = parent;
+  }
+
+  exportToJson(){
+    const json :string = JSON.stringify(this.family, (key,value)=>{
+      if(key=== 'parent')
+      return;
+      return value;
+    });
+    console.log(json);
+
+    const a = window.document.createElement('a');
+    a.href = window.URL.createObjectURL(new Blob([json], {type: 'text/json'}));
+    a.download = 'test.json';
+
+    // Append anchor to body.
+    document.body.appendChild(a);
+    a.click();
+
+    // Remove anchor from body
+    document.body.removeChild(a);
   }
 }
