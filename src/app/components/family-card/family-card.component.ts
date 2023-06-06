@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { FamilyTreeService } from 'src/app/services/familyTree.service';
+import { IFamilyTreeService } from 'src/app/services/iFamilyTree.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { FamilyNode } from 'src/shared/FamilyNode.model';
 
@@ -12,7 +14,7 @@ import { FamilyNode } from 'src/shared/FamilyNode.model';
   styleUrls: ['./family-card.component.css']
 })
 export class familyCardComponent {
-  constructor(public toastService: ToastService) {
+  constructor(@Inject('IFamilyTreeService') public fanilyTreeService: IFamilyTreeService,public toastService: ToastService, public familyTreeService: FamilyTreeService) {
     this.time = new Date().getTime();
     this.newName = '';
   }
@@ -29,18 +31,6 @@ export class familyCardComponent {
   time: number = 1;
 
   /**
-   * validate the name is not empty or blanks
-   * @returns boolean true if the name is valid
-   */
-  validateString(): boolean {
-    if (this.newName && this.newName.length > 0) {
-      return true;
-    }
-    this.toastService.error("Name can't be empty")
-    return false;
-  }
-
-  /**
    * validate name and call the right function using the serlected radio button
    * and clear the text box
    * @param form 
@@ -50,22 +40,22 @@ export class familyCardComponent {
     this.relitionType = form.controls['relitionType'].value
     this.newName = form.controls['newName'].value
     this.isValidFormSubmitted = false;
-    if (!this.validateString()) {
+    if (!this.familyTreeService.validateString(this.newName)) {
       return;
     }
     this.isValidFormSubmitted = true;
     switch (form.controls['relitionType'].value) {
       case 'parent':
-        this.addParent();
+        this.familyTreeService.addParent(this.node, this.newName);
         break;
       case 'siblin':
-        this.addSiblin();
+        this.familyTreeService.addSiblin(this.node, this.newName);
         break;
       case 'child':
-        this.addChild();
+        this.familyTreeService.addChild(this.node, this.newName);
         break;
       case 'partner':
-        this.addPartner();
+        this.familyTreeService.addPartner(this.node, this.newName);
         break;
     }
     this.newName = '';
@@ -76,68 +66,12 @@ export class familyCardComponent {
   }
 
   /**
-   * add partner to the current family node can't add mmore the 2 in total
-   */
-  addPartner() {
-    if (this.node.names.length === 2) {
-      this.toastService.error("You cna't add more partner")
-    } else {
-      this.node.names.push(this.newName);
-      this.toastService.success("partner is added successfully")
-    }
-  }
-
-  /**
    * delete the selected partner from the list 
    * can't remove if we have only one
    * @param name of the partner
    */
-  deleteParent(name: string): void {    
-    if (this.node.names.length < 2) {
-      this.toastService.error("You cna't remove the last parent")
-    } else {
-      this.node.names = this.node.names[0] === name ? [this.node.names[1]] : [this.node.names[0]];
-      this.toastService.success("parent is deleted successfully")
-    }
-  }
-
-  /**
-   * add parent to the curent family node 
-   * if this is the root family node we call other function because we need to change the root family node(and we dont have access to it)
-   * can't add if we have two parents already, 
-   */
-  addParent(): void {
-    if (this.node.parent && this.node.parent.names.length == 2) {
-      this.toastService.error("You cna't add more parent");
-    } else if (this.node.parent) {
-      this.node.parent?.names.push(this.newName);
-    } else {
-      this.addParentRoot.emit(this.newName);
-    }
-    this.toastService.success("parent is added successfully")
-  }
-
-  /**
-   * add siblin to current family node by adding child to the parent
-   * can't add siblin if we dont have a parent
-   */
-  addSiblin(): void {
-    if (this.node.parent) {
-      var siblin: FamilyNode = new FamilyNode([], [this.newName], this.node.parent);
-      this.node.parent.children.push(siblin);
-      this.toastService.success("siblin is added successfully")
-    } else {
-      this.toastService.error("You cna't add more siblin without a parent");
-    }
-  }
-
-  /**
-   * add child to the curent family node
-   */
-  addChild(): void {
-    var child: FamilyNode = new FamilyNode([], [this.newName], this.node);
-    this.node.children.push(child);
-    this.toastService.success("child is added successfully")
+  deleteParent(name: string): void {  
+    this.familyTreeService.deleteParent(this.node, name);
   }
 
   /**
@@ -145,11 +79,6 @@ export class familyCardComponent {
    * can't remove the root family node
    */
   deleteNode(): void {
-    if (!this.node.parent) {
-      this.toastService.error("You cna't delete the root parent");
-    } else {
-      this.node.parent.children = this.node.parent.children.filter(child => child !== this.node)
-      this.toastService.success("child is deleted successfully")
-    }
+    this.familyTreeService.deleteNode(this.node, this.newName);
   }
 }

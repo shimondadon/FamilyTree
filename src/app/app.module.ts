@@ -7,11 +7,12 @@ import { familyCardComponent } from './components/family-card/family-card.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsContainer } from 'src/shared/components/toasts/toasts-container';
 import { FormsModule } from '@angular/forms';
+import { FamilyTreeService } from './services/familyTree.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    familyCardComponent,
+    familyCardComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +21,9 @@ import { FormsModule } from '@angular/forms';
     ToastsContainer,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'IFamilyTreeService', useClass: FamilyTreeService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

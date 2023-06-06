@@ -1,22 +1,17 @@
-import { Component } from '@angular/core';
-import { FamilyNode as FamilyNode } from 'src/shared/FamilyNode.model';
+import { Component, Inject } from '@angular/core';
+import { FamilyTreeService } from './services/familyTree.service';
+import { IFamilyTreeService } from './services/iFamilyTree.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  
 })
 export class AppComponent {
-  me: FamilyNode = new FamilyNode([], ['Me'],undefined);
-  family: FamilyNode = this.me;
+  
+  constructor(public fanilyTreeService: FamilyTreeService){
 
-  /**
-   * change the current family root node to new family node by input name 
-   * @param name 
-   */
-  addParentRoot(name:string) :void{
-    var parent = new FamilyNode([this.family], [name], undefined);
-    this.family.parent = parent;
-    this.family = parent;
   }
+
 }
