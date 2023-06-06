@@ -12,4 +12,26 @@ export class AppComponent {
   
   constructor(public fanilyTreeService: FamilyTreeService){
 
+  }
+
+
+  exportToJson(){
+    const json :string = JSON.stringify(this.fanilyTreeService.root, (key,value)=>{
+      if(key=== 'parent')
+      return;
+      return value;
+    });
+    console.log(json);
+
+    const a = window.document.createElement('a');
+    a.href = window.URL.createObjectURL(new Blob([json], {type: 'text/json'}));
+    a.download = 'test.json';
+
+    // Append anchor to body.
+    document.body.appendChild(a);
+    a.click();
+
+    // Remove anchor from body
+    document.body.removeChild(a);
+  }
 }
