@@ -10,7 +10,7 @@
   <div class="row">
     <div class="tree">
       <ul class="list-group list-group-horizontal position-relative overflow-auto w-100">
-        <app-family-card [node]="family" (addParentRoot)="addParentRoot($event)"></app-family-card>
+        <app-family-card [node]="fanilyTreeService.root"></app-family-card>
       </ul>
     </div>
   </div>
