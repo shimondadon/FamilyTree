@@ -1,13 +1,15 @@
+import { Injectable } from "@angular/core";
 import { FamilyNode } from "src/shared/FamilyNode.model";
 import { FamilyNodeInterface } from "src/shared/FamilyNodeIterface";
 
-export interface IFamilyTreeService{
-    root: FamilyNodeInterface;
-    validateString(newName: string): boolean;
-    addPartner(node: FamilyNode, newName: string): void;
-    deleteParent(node: FamilyNode, name: string): void;
-    addParent(node: FamilyNode, newName?: string): void;
-    addSiblin(node: FamilyNode, newName: string): void;
-    addChild(node: FamilyNode, newName: string): void;
-    deleteNode(node: FamilyNode, newName: string): void;
+@Injectable()
+export abstract class IFamilyTreeService{
+    abstract root: FamilyNodeInterface;
+    abstract validateString(newName: string): boolean;
+    abstract addPartner(node: FamilyNode, newName: string): void;
+    abstract deleteParent(node: FamilyNode, name: string): void;
+    abstract addParent(node: FamilyNode, newName?: string): void;
+    abstract addSiblin(node: FamilyNode, newName: string): void;
+    abstract addChild(node: FamilyNode, newName: string): void;
+    abstract deleteNode(node: FamilyNode, newName: string): void;
 }

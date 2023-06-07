@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FamilyTreeService } from 'src/app/services/familyTree.service';
+import { FamilyTreeService1 } from 'src/app/services/familyTree1.service';
 import { IFamilyTreeService } from 'src/app/services/iFamilyTree.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { FamilyNode } from 'src/shared/FamilyNode.model';
@@ -14,7 +15,8 @@ import { FamilyNode } from 'src/shared/FamilyNode.model';
   styleUrls: ['./family-card.component.css']
 })
 export class familyCardComponent {
-  constructor(@Inject('IFamilyTreeService') public fanilyTreeService: IFamilyTreeService,public toastService: ToastService, public familyTreeService: FamilyTreeService) {
+  constructor(public toastService: ToastService, 
+              public familyTreeService: IFamilyTreeService) {
     this.time = new Date().getTime();
     this.newName = '';
   }

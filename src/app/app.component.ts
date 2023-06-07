@@ -1,16 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { FamilyTreeService } from './services/familyTree.service';
+import { FamilyTreeService1 } from './services/familyTree1.service';
 import { IFamilyTreeService } from './services/iFamilyTree.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  
 })
 export class AppComponent {
   
-  constructor(public fanilyTreeService: FamilyTreeService){
+  constructor(public fanilyTreeService: IFamilyTreeService){
 
   }
 
